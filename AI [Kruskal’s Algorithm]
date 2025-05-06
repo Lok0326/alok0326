@@ -1,0 +1,50 @@
+def visualize_kruskal(edges, mst):
+    G = nx.Graph()
+    for u, v, w in edges:
+        G.add_edge(u, v, weight=w)
+
+    pos = nx.spring_layout(G)
+    labels = nx.get_edge_attributes(G, 'weight')
+
+    plt.clf()
+    nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray')
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
+
+    # Highlight MST edges
+    mst_edges = [(u, v) for u, v, _ in mst]
+    nx.draw_networkx_edges(G, pos, edgelist=mst_edges, edge_color='red', width=2)
+    plt.title("Kruskal's MST Progress")
+    plt.pause(1)
+
+def kruskal(graph, n):
+    edges = sorted(graph, key=lambda x: x[2])
+    parent = {i: i for i in range(n)}
+    
+    def find(v):
+        if parent[v] == v:
+            return v
+        parent[v] = find(parent[v])
+        return parent[v]
+
+    mst = []
+    for u, v, weight in edges:
+        pu, pv = find(u), find(v)
+        if pu != pv:
+            mst.append((u, v, weight))
+            parent[pu] = pv
+            visualize_kruskal(edges, mst)  # Visualization
+
+    return mst
+
+# User Input
+edges = []
+n = int(input("Enter number of nodes: "))
+for _ in range(int(input("Enter number of edges: "))):
+    u, v, w = map(int, input("Enter edge (u, v, weight): ").split())
+    edges.append((u, v, w))
+
+plt.ion()
+print("Running Kruskal's Algorithm...")
+kruskal(edges, n)
+plt.ioff()
+plt.show()
