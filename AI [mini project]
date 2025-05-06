@@ -1,0 +1,118 @@
+def welcome():
+    print("******Welcome to Food Shop , I am alok created by alok ******")
+    print()
+
+def info():
+    global name
+    name = input("Can I know your good name : ")
+    print("Hey " + name + "! Good to see you here!!!")
+    print("You are in the right place. I will help you to book your dish and drinks.")
+    print()
+
+def menu():
+    print('''Here is your menu with their prices
+1. Pizza - ₹200
+2. Mango Juice - ₹70
+3. Apple Juice - ₹80''')
+
+def order(price, product):
+    print()
+    print("Thank you for choosing " + product)
+    print()
+    print("Please give us some more information about you!!!!")
+    mob = input("Enter your mobile number : ")
+    add = input("Enter your address of delivery : ")
+    
+    print('''Choose mode of payment:
+1. Online
+2. Cash on delivery''')
+    
+    pay = input()
+    paymode = ""
+    if pay == "2":
+        paymode = "Cash on delivery"
+    else:
+        paymode = "Online"
+
+    print()
+    print("******* Here is the detail of your selected order *******")
+    print()
+    print("Customer Name : " + name)
+    print("Product Name  : " + product)
+    print("Price         : ₹" + str(price))
+    print("Payment Mode  : " + paymode)
+    print("Delivery Addr : " + add)
+    print()
+
+    b = input("Please confirm by pressing 1, or 0 to cancel: ")
+    print()
+    if b == "1":
+        print("******* Your order is booked successfully *******")
+        print("Customer Name : " + name)
+        print("Product Name  : " + product)
+        print("Price         : ₹" + str(price))
+        print("Payment Mode  : " + paymode)
+        print("Delivery Addr : " + add)
+        print()
+        print("Thank you for your interest !!! Have a nice day !!!")
+    else:
+        print("***** Thank you for visiting !!! Have a nice day !!! *****")
+
+def choice():
+    print("Please select a product you wish to order:")
+    price = 0
+    a = input()
+
+    if a.lower() == "pizza":
+        price = 200
+        order(price, a)
+    elif a.lower() == "mango juice":
+        price = 70
+        order(price, a)
+    elif a.lower() == "apple juice":
+        price = 80
+        order(price, a)
+    else:
+        print("You have not selected any valid product... Thank you for visiting! Have a nice day!")
+
+# Run the app
+welcome()
+info()
+menu()
+choice()
+
+
+OUTPUT
+
+******Welcome to Food Shop , I am alok created by alok ******
+
+Hey alok! Good to see you here!!!
+You are in the right place. I will help you to book your dish and drinks.
+
+Here is your menu with their prices
+1. Pizza - ₹200
+2. Mango Juice - ₹70
+3. Apple Juice - ₹80
+Please select a product you wish to order:
+Thank you for choosing apple juice
+
+Please give us some more information about you!!!!
+Choose mode of payment:
+1. Online
+2. Cash on delivery
+******* Here is the detail of your selected order *******
+
+Customer Name : rushi
+Product Name  : apple juice
+Price         : ₹80
+Payment Mode  : Cash on delivery
+Delivery Addr : pune
+
+******* Your order is booked successfully *******
+Customer Name : rushi
+Product Name  : apple juice
+Price         : ₹80
+Payment Mode  : Cash on delivery
+Delivery Addr : pune
+
+Thank you for your interest !!! Have a nice day !!!
