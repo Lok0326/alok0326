@@ -62,3 +62,28 @@ print("Running Dijkstra's Algorithm...")
 print("Shortest paths:", dijkstra(graph, start_node))
 plt.ioff()
 plt.show()
+
+
+Enter the number of nodes:  5
+Enter node 1:  0
+Enter the number of edges for node 0:  2
+Enter neighbor and weight (space-separated):  1 2
+Enter neighbor and weight (space-separated):  2 4
+Enter node 2:  1
+Enter the number of edges for node 1:  3
+Enter neighbor and weight (space-separated):  0 2
+Enter neighbor and weight (space-separated):  2 1
+Enter neighbor and weight (space-separated):  3 7
+Enter node 3:  2
+Enter the number of edges for node 2:  3
+Enter neighbor and weight (space-separated):  0 4
+Enter neighbor and weight (space-separated):  1 1
+Enter neighbor and weight (space-separated):  3 3
+Enter node 4:  3
+Enter the number of edges for node 3:  2
+Enter neighbor and weight (space-separated):  1 7
+Enter neighbor and weight (space-separated):  2 3
+Enter node 5:  4
+Enter the number of edges for node 4:  1
+Enter neighbor and weight (space-separated):  3 2
+Enter start node:  0
