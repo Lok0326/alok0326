@@ -1,0 +1,70 @@
+import networkx as nx 
+import heapq 
+import matplotlib.pyplot as plt
+
+def visualize_graph(graph, edges, title="Graph Visualization"):
+    G = nx.Graph() 
+    for node in graph: 
+        G.add_node(node) 
+    for edge in edges: 
+        u, v, w = edge 
+        G.add_edge(u, v, weight=w) 
+    pos = nx.circular_layout(G) # Arrange nodes in a circular Layout for cycle visual
+    labels = nx.get_edge_attributes(G, 'weight')
+    plt.clf() 
+    nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray') 
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=labels) 
+    plt.title(title) 
+    plt.pause(1)
+
+def prims_mst(graph, start_node):
+    n = len(graph) 
+    mst = [] 
+    visited = set() 
+    pq = [(0, start_node, None)] # (cost, node, parent)
+    
+    while len(mst) < n - 1: 
+        cost, node, parent = heapq.heappop(pq)
+        if node in visited: 
+            continue 
+        visited.add(node) 
+        if parent is not None: 
+            mst.append((parent, node, cost)) 
+        visualize_graph(graph, mst, "Minimum Spanning Tree (Prim's Algorithm)") 
+        for neighbor, weight in graph[node]: 
+            if neighbor not in visited: 
+                heapq.heappush(pq, (weight, neighbor, node))
+    
+    return mst
+
+# User Input
+n = int(input("Enter the number of nodes: "))
+graph = {}
+for _ in range(n): 
+    node = int(input(f"Enter node {_ + 1}: ")) 
+    graph[node] = [] 
+    edges_count = int(input(f"Enter the number of edges for node {node}: ")) 
+    for _ in range(edges_count): 
+        neighbor, weight = map(int, input("Enter neighbor and weight (space-separated): ").split()) 
+        graph[node].append((neighbor, weight)) 
+        if neighbor not in graph: 
+            graph[neighbor] = [] 
+        graph[neighbor].append((node, weight))
+
+start_node = int(input("Enter start node: "))
+
+# Extracting edges for cycle visualization
+edges = []
+visited = set()
+for node in graph: 
+    for neighbor, weight in graph[node]: 
+        if (neighbor, node, weight) not in edges: 
+            edges.append((node, neighbor, weight))
+
+plt.ion() 
+print("Visualizing the cycle ... ") 
+visualize_graph(graph, edges, "Cyclic Graph Visualization")
+print("Running Prim's Algorithm...") 
+prims_mst(graph, start_node) 
+plt.ioff() 
+plt.show()
