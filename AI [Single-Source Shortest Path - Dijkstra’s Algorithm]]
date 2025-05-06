@@ -1,0 +1,64 @@
+import heapq
+import networkx as nx
+import matplotlib.pyplot as plt
+
+def visualize_dijkstra(graph, distances, visited):
+    G = nx.Graph()
+    for node in graph:
+        G.add_node(node)
+    for node, edges in graph.items():
+        for neighbor, weight in edges:
+            G.add_edge(node, neighbor, weight=weight)
+
+    pos = nx.spring_layout(G)
+    labels = nx.get_edge_attributes(G, 'weight')
+
+    plt.clf()
+    nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray')
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
+
+    # Highlight visited nodes
+    nx.draw_networkx_nodes(G, pos, nodelist=visited, node_color='red')
+    plt.title("Dijkstra's Algorithm Progress")
+    plt.pause(1)
+
+def dijkstra(graph, start):
+    heap = [(0, start)]
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    visited = []
+
+    while heap:
+        cost, node = heapq.heappop(heap)
+        if node in visited:
+            continue
+        visited.append(node)
+        visualize_dijkstra(graph, distances, visited)  # Visualization
+
+        for neighbor, weight in graph[node]:
+            new_cost = cost + weight
+            if new_cost < distances[neighbor]:
+                distances[neighbor] = new_cost
+                heapq.heappush(heap, (new_cost, neighbor))
+
+    return distances
+
+# Taking user input for graph construction
+graph = {}
+num_nodes = int(input("Enter the number of nodes: "))
+
+for i in range(num_nodes):
+    node = int(input(f"Enter node {i+1}: "))
+    graph[node] = []
+    num_edges = int(input(f"Enter the number of edges for node {node}: "))
+    for _ in range(num_edges):
+        neighbor, weight = map(int, input("Enter neighbor and weight (space-separated): ").split())
+        graph[node].append((neighbor, weight))
+
+start_node = int(input("Enter start node: "))
+
+plt.ion()
+print("Running Dijkstra's Algorithm...")
+print("Shortest paths:", dijkstra(graph, start_node))
+plt.ioff()
+plt.show()
