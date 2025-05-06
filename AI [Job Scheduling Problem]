@@ -1,0 +1,15 @@
+def job_scheduling(jobs):
+    jobs.sort(key=lambda x: x[1], reverse=True)
+    result = []
+    for job in jobs:
+        result.append(job[0])
+    return result
+
+# User Input
+n = int(input("Enter number of jobs: "))
+jobs = []
+for _ in range(n):
+    name, profit = input("Enter job name and profit: ").split()
+    jobs.append((name, int(profit)))
+
+print("Scheduled Jobs:", job_scheduling(jobs))
