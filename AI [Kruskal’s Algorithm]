@@ -48,3 +48,16 @@ print("Running Kruskal's Algorithm...")
 kruskal(edges, n)
 plt.ioff()
 plt.show()
+
+
+
+Enter number of nodes: 5
+Enter number of edges: 7
+Enter edge (u, v, weight): 0 1 2
+Enter edge (u, v, weight): 0 3 6
+Enter edge (u, v, weight): 1 2 3
+Enter edge (u, v, weight): 1 2 3
+Enter edge (u, v, weight): 1 4 5
+Enter edge (u, v, weight): 2 4 7
+Enter edge (u, v, weight): 3 4 9
+Running Kruskal's Algorithm...
